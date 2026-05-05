@@ -1,656 +1,129 @@
-<!DOCTYPE html>
-<html lang="uk">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Гендерна рівність у мові | Довідник фемінітивів</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #fef9f0;
-            color: #2c2b28;
-            line-height: 1.5;
-            scroll-behavior: smooth;
-        }
-
-        /* container */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem 1.5rem;
-        }
-
-        /* header */
-        .hero {
-            background: linear-gradient(135deg, #3f2b1d 0%, #5e3a2c 100%);
-            color: white;
-            padding: 3rem 1.5rem;
-            border-radius: 2rem;
-            margin-bottom: 2rem;
-            text-align: center;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-        .hero h1 {
-            font-size: 2.6rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            margin-bottom: 0.75rem;
-        }
-        .hero p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-        .badge {
-            background: #ffcf9a;
-            color: #3f2b1d;
-            display: inline-block;
-            padding: 0.3rem 1rem;
-            border-radius: 40px;
-            font-weight: 600;
-            font-size: 0.85rem;
-            margin-top: 1rem;
-        }
-
-        /* навігація */
-        .nav-links {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-        .nav-btn {
-            background: #f0e5d8;
-            padding: 0.7rem 1.5rem;
-            border-radius: 40px;
-            font-weight: 600;
-            color: #4a2e1f;
-            text-decoration: none;
-            transition: 0.2s;
-            border: 1px solid #e2cfbb;
-        }
-        .nav-btn:hover {
-            background: #e6d5c4;
-            transform: translateY(-2px);
-        }
-
-        /* секції */
-        .section {
-            background: white;
-            border-radius: 1.5rem;
-            padding: 1.8rem 2rem;
-            margin-bottom: 2.5rem;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.05);
-            border: 1px solid #f0e2d2;
-            transition: all 0.2s;
-        }
-        .section h2 {
-            font-size: 1.8rem;
-            font-weight: 600;
-            border-left: 6px solid #c97e5a;
-            padding-left: 1rem;
-            margin-bottom: 1.2rem;
-            color: #3b2a1f;
-        }
-        .section h3 {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin: 1rem 0 0.5rem 0;
-            color: #b45f3b;
-        }
-        .rule-card {
-            background: #fef7ef;
-            padding: 1.2rem;
-            border-radius: 1rem;
-            margin: 1rem 0;
-        }
-        .example {
-            background: #f3efe8;
-            padding: 0.6rem 1rem;
-            border-radius: 1rem;
-            font-family: monospace;
-            font-size: 1rem;
-            margin: 0.5rem 0;
-            border-left: 4px solid #c97e5a;
-        }
-        .grid-2cols {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1rem;
-        }
-
-        /* гра знайди пару */
-        .game-area {
-            background: #fbf5eb;
-            padding: 1rem;
-            border-radius: 1.5rem;
-        }
-        .pairs-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            justify-content: center;
-            margin: 1.5rem 0;
-        }
-        .column {
-            flex: 1;
-            min-width: 200px;
-            background: #fff9f2;
-            border-radius: 1.2rem;
-            padding: 1rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-        .column h4 {
-            text-align: center;
-            margin-bottom: 1rem;
-            font-weight: 600;
-            border-bottom: 2px solid #e7d5c2;
-            display: inline-block;
-            width: 100%;
-        }
-        .word-card {
-            background: white;
-            border: 1px solid #e2cfbb;
-            border-radius: 60px;
-            padding: 0.7rem 1rem;
-            margin: 0.6rem 0;
-            text-align: center;
-            cursor: pointer;
-            transition: 0.1s linear;
-            font-weight: 500;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-        }
-        .word-card.selected {
-            background: #d9c7b2;
-            border-color: #a66e48;
-            color: white;
-            transform: scale(0.98);
-        }
-        .word-card.matched {
-            background: #b9d8b3;
-            border-color: #2f6b2f;
-            color: #1c3e1c;
-            text-decoration: line-through;
-            opacity: 0.7;
-            cursor: default;
-            pointer-events: none;
-        }
-        .game-feedback {
-            text-align: center;
-            margin: 1rem 0;
-            font-weight: 600;
-        }
-        .reset-game {
-            background: #c97e5a;
-            border: none;
-            color: white;
-            padding: 0.6rem 1.8rem;
-            border-radius: 40px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 0.5rem;
-        }
-
-        /* тест вікторина */
-        .quiz-question {
-            background: #fcf7f0;
-            padding: 1.2rem;
-            border-radius: 1rem;
-            margin-bottom: 1rem;
-        }
-        .quiz-options {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.8rem;
-            margin: 0.8rem 0;
-        }
-        .quiz-btn {
-            background: #efe2d3;
-            padding: 0.5rem 1.2rem;
-            border-radius: 40px;
-            border: none;
-            cursor: pointer;
-            font-weight: 500;
-            transition: 0.1s;
-        }
-        .quiz-btn.correct {
-            background: #6fbf4c;
-            color: white;
-        }
-        .quiz-btn.wrong {
-            background: #d97a5a;
-            color: white;
-        }
-        .quiz-feedback {
-            margin-top: 0.5rem;
-            font-style: italic;
-        }
-        .quiz-result {
-            font-weight: bold;
-            margin-top: 1rem;
-        }
-
-        /* вправи на заміну речень */
-        .sentence-exercise {
-            background: #fff7ed;
-            border-radius: 1rem;
-            padding: 1rem;
-        }
-        .sentence-item {
-            margin-bottom: 1.5rem;
-            border-bottom: 1px dashed #e2cfbb;
-            padding-bottom: 1rem;
-        }
-        .sentence-text {
-            font-weight: 500;
-            margin-bottom: 0.6rem;
-        }
-        .sentence-input {
-            width: 100%;
-            padding: 0.6rem;
-            border-radius: 1rem;
-            border: 1px solid #cdb79e;
-            font-family: inherit;
-            margin: 0.3rem 0;
-        }
-        .check-btn {
-            background: #b88b65;
-            border: none;
-            color: white;
-            padding: 0.4rem 1rem;
-            border-radius: 2rem;
-            cursor: pointer;
-            font-size: 0.85rem;
-        }
-        .sentence-feedback {
-            font-size: 0.85rem;
-            margin-top: 0.4rem;
-            color: #4f6b2e;
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 2rem;
-            padding: 1rem;
-            font-size: 0.85rem;
-            color: #8c7a68;
-        }
-        @media (max-width: 700px) {
-            .section {
-                padding: 1.2rem;
-            }
-            .hero h1 {
-                font-size: 1.9rem;
-            }
-        }
-    </style>
-</head>
-<body>
-<div class="container">
-    <div class="hero">
-        <h1>📖 Гендерна рівність у мові</h1>
-        <p>Іменники чоловічого та жіночого роду, назви людей за діяльністю, іменники спільного роду</p>
-        <div class="badge">✨ сучасний український довідник</div>
-    </div>
-
-    <div class="nav-links">
-        <a href="#rules" class="nav-btn">📘 Правила</a>
-        <a href="#history" class="nav-btn">🕰 Історія змін</a>
-        <a href="#pairs" class="nav-btn">🃏 Знайди пару</a>
-        <a href="#quiz" class="nav-btn">🧠 Вікторина</a>
-        <a href="#sentences" class="nav-btn">✍️ Заміни речення</a>
-    </div>
-
-    <!-- Розділ правил -->
-    <div id="rules" class="section">
-        <h2>📌 Правила вживання</h2>
-        <div class="rule-card">
-            <h3>👩‍💼 Фемінітиви (жіночий рід)</h3>
-            <p>Утворюються за допомогою суфіксів: <strong>-к-, -иц-, -ин(я), -ес-, -ин(я)</strong> тощо. Використання фемінітивів підкреслює ґендерну чутливість і точність.</p>
-            <div class="example">🔹 лікар → лікарка</div>
-            <div class="example">🔹 директор → директорка</div>
-            <div class="example">🔹 викладач → викладачка</div>
-            <div class="example">🔹 поет → поетеса</div>
-        </div>
-        <div class="rule-card">
-            <h3>👨‍💼 Маскулінітиви (чоловічий рід)</h3>
-            <p>Традиційні назви професій, посад, звертань. Сьогодні вживаються як нейтральні або для позначення чоловіків.</p>
-            <div class="example">🔹 менеджер, інженер, водій, суддя</div>
-            <p>💡 Важливо: у офіційному стилі часто використовують обидві форми залежно від статі особи.</p>
-        </div>
-        <div class="rule-card">
-            <h3>⚖️ Іменники спільного роду</h3>
-            <p>Слова, які можуть позначати осіб і жіночої, і чоловічої статі, не змінюючи форми. Рід визначається за контекстом або узгодженням.</p>
-            <div class="example">🔹 сирота, нероба, бідолаха, листоноша, голова (очільник/очільниця)</div>
-            <div class="example">🔹 <em>Цей студент — страшенна нероба.</em> / <em>Ця дівчина — страшенна нероба.</em></div>
-        </div>
-    </div>
-
-    <!-- Історичний огляд -->
-    <div id="history" class="section">
-        <h2>🕰 Як змінювалася мова: від «лікар» до «лікарка»</h2>
-        <p>У XIX–XX століттях багато професій вважалися виключно чоловічими, тому фемінітиви майже не вживалися. Радянська доба закріпила уніфіковані форми чоловічого роду для всіх. Із 1990-х і особливо після 2010-х відбувається активне відродження фемінітивів, з’являються словники, стилістичні рекомендації. Сьогодні "лікарка", "редакторка", "дизайнерка" — це норма сучасної літературної мови, що відображає рівність.</p>
-        <div class="grid-2cols" style="margin-top:1rem">
-            <div class="example">📜 традиційно: <s>жінка-лікар</s> → сучасно: <strong>лікарка</strong></div>
-            <div class="example">📜 традиційно: голова (лише ч.р.) → сучасно: голова (спільний рід) або <strong>голованя</strong> (рідше) але частіше «очільниця»</div>
-        </div>
-    </div>
-
-    <!-- Інтерактивна гра "Знайди пару" -->
-    <div id="pairs" class="section">
-        <h2>🃏 Гра «Знайди пару» (маскулінітив ↔ фемінітив)</h2>
-        <div class="game-area">
-            <p style="margin-bottom: 10px;">🔄 Клацніть на слово з лівого стовпчика, потім на слово з правого, щоб утворити правильну пару. Зеленим позначаються знайдені пари.</p>
-            <div id="pairGameContainer"></div>
-            <div class="game-feedback" id="gameFeedback"></div>
-            <button class="reset-game" id="resetGameBtn">⟳ Перезапустити гру</button>
-        </div>
-    </div>
-
-    <!-- Тест-вікторина -->
-    <div id="quiz" class="section">
-        <h2>🧠 Вікторина: перевірте знання</h2>
-        <div id="quizContainer"></div>
-        <div class="quiz-result" id="quizResult"></div>
-    </div>
-
-    <!-- Приклади речень: заміна форм -->
-    <div id="sentences" class="section">
-        <h2>✍️ Вправа: заміни застарілу форму на сучасну</h2>
-        <p>Напишіть ґендерно чутливий варіант (або навпаки, якщо вказано).</p>
-        <div id="sentencesExercise"></div>
-    </div>
-
-    <footer>
-        🌸 Освітній проєкт про ґендерну рівність у мові | Фемінітиви, маскулінітиви, іменники спільного роду
-    </footer>
-</div>
-
-<script>
-    // ---------- ДАНІ ДЛЯ ГРИ "ЗНАЙДИ ПАРУ" ----------
-    const pairsData = [
-        { masc: "директор", fem: "директорка" },
-        { masc: "вчитель", fem: "вчителька" },
-        { masc: "лікар", fem: "лікарка" },
-        { masc: "програміст", fem: "програмістка" },
-        { masc: "письменник", fem: "письменниця" },
-        { masc: "співак", fem: "співачка" },
-        { masc: "редактор", fem: "редакторка" },
-        { masc: "провідник", fem: "провідниця" }
-    ];
-
-    let currentGameState = {
-        selectedSide: null, // 'left' or 'right'
-        selectedWord: null,
-        matchedPairs: [],   // зберігаємо знайдені пари як індекси
-        leftItems: [],
-        rightItems: []
-    };
-
-    function shuffleArray(arr) {
-        for (let i = arr.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [arr[i], arr[j]] = [arr[j], arr[i]];
-        }
-        return arr;
+class Program
+{
+    class Player
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int Level { get; set; }
     }
 
-    function initGame() {
-        const leftRaw = pairsData.map(p => p.masc);
-        const rightRaw = pairsData.map(p => p.fem);
-        currentGameState.leftItems = shuffleArray([...leftRaw]);
-        currentGameState.rightItems = shuffleArray([...rightRaw]);
-        currentGameState.matchedPairs = [];
-        currentGameState.selectedSide = null;
-        currentGameState.selectedWord = null;
-        renderGame();
+    class Item
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int Power { get; set; }
     }
 
-    function renderGame() {
-        const container = document.getElementById('pairGameContainer');
-        if (!container) return;
-
-        const leftWords = currentGameState.leftItems;
-        const rightWords = currentGameState.rightItems;
-        const matched = currentGameState.matchedPairs;
-
-        // функція перевірки чи слово в matched
-        function isLeftMatched(word) {
-            const pair = pairsData.find(p => p.masc === word);
-            if (!pair) return false;
-            return matched.includes(pair.masc + '|' + pair.fem);
-        }
-        function isRightMatched(word) {
-            const pair = pairsData.find(p => p.fem === word);
-            if (!pair) return false;
-            return matched.includes(pair.masc + '|' + pair.fem);
-        }
-
-        const leftHtml = `
-            <div class="column">
-                <h4>👨 Чоловічий рід</h4>
-                ${leftWords.map(word => {
-                    const matchedFlag = isLeftMatched(word);
-                    const additionalClass = matchedFlag ? 'matched' : '';
-                    const selectedClass = (currentGameState.selectedSide === 'left' && currentGameState.selectedWord === word && !matchedFlag) ? 'selected' : '';
-                    return `<div class="word-card ${additionalClass} ${selectedClass}" data-side="left" data-word="${word}">${word}</div>`;
-                }).join('')}
-            </div>
-        `;
-        const rightHtml = `
-            <div class="column">
-                <h4>👩 Жіночий рід</h4>
-                ${rightWords.map(word => {
-                    const matchedFlag = isRightMatched(word);
-                    const additionalClass = matchedFlag ? 'matched' : '';
-                    const selectedClass = (currentGameState.selectedSide === 'right' && currentGameState.selectedWord === word && !matchedFlag) ? 'selected' : '';
-                    return `<div class="word-card ${additionalClass} ${selectedClass}" data-side="right" data-word="${word}">${word}</div>`;
-                }).join('')}
-            </div>
-        `;
-
-        container.innerHTML = `<div class="pairs-container">${leftHtml}${rightHtml}</div>`;
-        // додати слухачі
-        document.querySelectorAll('.word-card').forEach(card => {
-            if (card.classList.contains('matched')) return;
-            card.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const side = card.dataset.side;
-                const word = card.dataset.word;
-                handlePairSelection(side, word);
-            });
-        });
-        const feedbackDiv = document.getElementById('gameFeedback');
-        if (currentGameState.matchedPairs.length === pairsData.length) {
-            feedbackDiv.innerHTML = '🎉 Вітаємо! Ви знайшли всі пари! 🎉';
-        } else {
-            feedbackDiv.innerHTML = `✅ Знайдено пар: ${currentGameState.matchedPairs.length} / ${pairsData.length}`;
-        }
+    class Inventory
+    {
+        public int PlayerId { get; set; }
+        public int ItemId { get; set; }
+        public int Quantity { get; set; }
     }
 
-    function handlePairSelection(side, word) {
-        if (currentGameState.matchedPairs.length === pairsData.length) return;
-        // якщо нічого не вибрано
-        if (currentGameState.selectedSide === null) {
-            // вибрати перше
-            currentGameState.selectedSide = side;
-            currentGameState.selectedWord = word;
-            renderGame();
-            return;
+    static void Main()
+    {
+        var players = new List<Player>
+        {
+            new Player { Id = 1, Name = "Arthas", Level = 10 },
+            new Player { Id = 2, Name = "Illidan", Level = 15 },
+            new Player { Id = 3, Name = "Thrall", Level = 8 },
+            new Player { Id = 4, Name = "Jaina", Level = 12 },
+            new Player { Id = 5, Name = "Jaina2", Level = 13 }
+        };
+
+        var items = new List<Item>
+        {
+            new Item { Id = 1, Name = "Sword", Power = 10 },
+            new Item { Id = 2, Name = "Staff", Power = 8 },
+            new Item { Id = 3, Name = "Axe", Power = 12 },
+            new Item { Id = 4, Name = "Bow", Power = 7 }
+        };
+
+        var inventory = new List<Inventory>
+        {
+            new Inventory { PlayerId = 1, ItemId = 1, Quantity = 1 },
+            new Inventory { PlayerId = 1, ItemId = 2, Quantity = 2 },
+            new Inventory { PlayerId = 2, ItemId = 3, Quantity = 1 },
+            new Inventory { PlayerId = 3, ItemId = 4, Quantity = 3 }
+        };
+
+        Console.WriteLine("=== 1. PlayerName + ItemId ===");
+        var playerItemIds = players.Join(
+                inventory,
+                p => p.Id,
+                i => i.PlayerId,
+                (p, i) => new { p.Name, i.ItemId }
+            );
+        foreach (var item in playerItemIds)
+        {
+            Console.WriteLine($"Гравець: {item.Name}, ItemId: {item.ItemId}");
         }
-        // вже вибрано якесь слово
-        const firstSide = currentGameState.selectedSide;
-        const firstWord = currentGameState.selectedWord;
 
-        if (firstSide === side) {
-            // зняти вибір
-            currentGameState.selectedSide = null;
-            currentGameState.selectedWord = null;
-            renderGame();
-            return;
+        Console.WriteLine("\n=== 2. ItemName + Quantity ===");
+        var itemQuantities = inventory.Join(
+                items,
+                inv => inv.ItemId,
+                it => it.Id,
+                (inv, it) => new { it.Name, inv.Quantity }
+            );
+        foreach (var item in itemQuantities)
+        {
+            Console.WriteLine($"Предмет: {item.Name}, Кількість: {item.Quantity}");
         }
 
-        // спроба створити пару
-        let mascWord, femWord;
-        if (firstSide === 'left' && side === 'right') {
-            mascWord = firstWord;
-            femWord = word;
-        } else if (firstSide === 'right' && side === 'left') {
-            mascWord = word;
-            femWord = firstWord;
-        } else {
-            currentGameState.selectedSide = null;
-            currentGameState.selectedWord = null;
-            renderGame();
-            return;
+        Console.WriteLine("\n=== 3. Гравці, у яких є предмети (без дублікатів) ===");
+        var playersWithItems = players
+            .Where(p => inventory.Any(i => i.PlayerId == p.Id))
+            .Select(p => p.Name);
+        foreach (var playerName in playersWithItems)
+        {
+            Console.WriteLine($"Гравець: {playerName}");
         }
 
-        // перевірка чи існує така пара
-        const foundPair = pairsData.find(p => p.masc === mascWord && p.fem === femWord);
-        if (foundPair) {
-            const pairKey = mascWord + '|' + femWord;
-            if (!currentGameState.matchedPairs.includes(pairKey)) {
-                currentGameState.matchedPairs.push(pairKey);
-                document.getElementById('gameFeedback').innerHTML = '✅ Правильно! +1 пара';
-                setTimeout(() => {
-                    if (document.getElementById('gameFeedback')) {
-                        if (currentGameState.matchedPairs.length !== pairsData.length)
-                            document.getElementById('gameFeedback').innerHTML = `✅ Знайдено пар: ${currentGameState.matchedPairs.length} / ${pairsData.length}`;
-                        else
-                            document.getElementById('gameFeedback').innerHTML = '🎉 Вітаємо! Ви знайшли всі пари! 🎉';
-                    }
-                }, 600);
-            } else {
-                document.getElementById('gameFeedback').innerHTML = '⚠️ Ця пара вже знайдена!';
-            }
-        } else {
-            document.getElementById('gameFeedback').innerHTML = '❌ Неправильна пара. Спробуйте ще раз!';
+        Console.WriteLine("\n=== ДОМАШНЄ ЗАВДАННЯ: Кількість записів inventory для кожного гравця ===");
+        var inventoryCountPerPlayer = players
+            .GroupJoin(
+                inventory,
+                p => p.Id,
+                i => i.PlayerId,
+                (p, invItems) => new { PlayerName = p.Name, ItemsCount = invItems.Count() }
+            )
+            .Where(p => p.ItemsCount > 0); // Тільки гравці з предметами
+
+        foreach (var player in inventoryCountPerPlayer)
+        {
+            Console.WriteLine($"Гравець: {player.PlayerName}, Кількість записів в інвентарі: {player.ItemsCount}");
         }
-        currentGameState.selectedSide = null;
-        currentGameState.selectedWord = null;
-        renderGame();
+
+        // Альтернативний варіант підрахунку (включаючи гравців з 0 предметів)
+        Console.WriteLine("\n=== Альтернативний варіант (всі гравці) ===");
+        var allPlayersInventoryCount = from p in players
+                                       join i in inventory on p.Id equals i.PlayerId into invGroup
+                                       select new { PlayerName = p.Name, ItemsCount = invGroup.Count() };
+        
+        foreach (var player in allPlayersInventoryCount)
+        {
+            Console.WriteLine($"Гравець: {player.PlayerName}, Кількість записів: {player.ItemsCount}");
+        }
+
+        // Додатково: загальна кількість предметів (сума Quantity) для кожного гравця
+        Console.WriteLine("\n=== БОНУС: Загальна кількість предметів (сума Quantity) для кожного гравця ===");
+        var totalItemsPerPlayer = from p in players
+                                  join i in inventory on p.Id equals i.PlayerId into invGroup
+                                  select new 
+                                  { 
+                                      PlayerName = p.Name, 
+                                      TotalItems = invGroup.Sum(x => x.Quantity) 
+                                  };
+        
+        foreach (var player in totalItemsPerPlayer.Where(p => p.TotalItems > 0))
+        {
+            Console.WriteLine($"Гравець: {player.PlayerName}, Всього предметів: {player.TotalItems}");
+        }
     }
-
-    // ---------- ВІКТОРИНА ----------
-    const quizQuestions = [
-        { text: "Який із варіантів є коректним фемінітивом до слова 'хірург'?", options: ["хірургиня", "хірургка", "хірургиця"], correct: 0 },
-        { text: "Іменник 'сирота' — це:", options: ["тільки чоловічий рід", "тільки жіночий рід", "іменник спільного роду"], correct: 2 },
-        { text: "Оберіть правильну пару (маскулінітив → фемінітив):", options: ["доцент → доцентка", "продавець → продавщиця (обидва варіанти)", "обидві відповіді правильні"], correct: 2 },
-        { text: "Яка форма є застарілою, але раніше використовувалася замість сучасної 'директорка'?", options: ["директриса", "директорша", "директорка існувала завжди"], correct: 0 },
-        { text: "Яке твердження про іменники спільного роду правильне?", options: ["Вони мають лише одну форму для обох статей", "Вони змінюють закінчення залежно від статі", "Вживаються тільки в розмовній мові"], correct: 0 }
-    ];
-    let quizUserAnswers = new Array(quizQuestions.length).fill(null);
-
-    function renderQuiz() {
-        const quizDiv = document.getElementById('quizContainer');
-        if (!quizDiv) return;
-        quizDiv.innerHTML = '';
-        quizQuestions.forEach((q, idx) => {
-            const qDiv = document.createElement('div');
-            qDiv.className = 'quiz-question';
-            qDiv.innerHTML = `<strong>${idx+1}. ${q.text}</strong>`;
-            const optsDiv = document.createElement('div');
-            optsDiv.className = 'quiz-options';
-            q.options.forEach((opt, optIdx) => {
-                const btn = document.createElement('button');
-                btn.textContent = opt;
-                btn.className = 'quiz-btn';
-                if (quizUserAnswers[idx] === optIdx) {
-                    if (optIdx === q.correct) btn.classList.add('correct');
-                    else btn.classList.add('wrong');
-                }
-                btn.addEventListener('click', () => {
-                    quizUserAnswers[idx] = optIdx;
-                    renderQuiz();
-                    updateQuizResult();
-                });
-                optsDiv.appendChild(btn);
-            });
-            qDiv.appendChild(optsDiv);
-            if (quizUserAnswers[idx] !== null) {
-                const isCorrect = (quizUserAnswers[idx] === q.correct);
-                const fbSpan = document.createElement('div');
-                fbSpan.className = 'quiz-feedback';
-                fbSpan.innerHTML = isCorrect ? '✅ Правильно' : `❌ Помилка. Правильно: ${q.options[q.correct]}`;
-                qDiv.appendChild(fbSpan);
-            }
-            quizDiv.appendChild(qDiv);
-        });
-    }
-    function updateQuizResult() {
-        let correctCount = 0;
-        quizUserAnswers.forEach((ans, idx) => {
-            if(ans !== null && ans === quizQuestions[idx].correct) correctCount++;
-        });
-        const resultDiv = document.getElementById('quizResult');
-        resultDiv.innerHTML = `📊 Результат: ${correctCount} з ${quizQuestions.length} правильних відповідей. ${correctCount === quizQuestions.length ? 'Чудово! 💪' : 'Спробуйте ще раз!'}`;
-    }
-
-    // ---------- ВПРАВА РЕЧЕННЯ ----------
-    const sentencesData = [
-        { text: "Нашу школу очолює досвідчений директор (жінка).", correctHint: "директорка", placeholder: "наприклад: директорка" },
-        { text: "Вчора до нас приходила молодий лікар.", correctHint: "молода лікарка", placeholder: "виправте узгодження" },
-        { text: "Мій друг — відома поетеса (чоловік).", correctHint: "відомий поет", placeholder: "замініть на маскулінітив" },
-        { text: "Ця нероба знову запізнився на пару.", correctHint: "Ця нероба знову запізнилася (або запізнився залежно від статі)", placeholder: "узгодьте рід іменника спільного роду (нероба → жінка)" }
-    ];
-
-    let sentenceFeedbacks = new Array(sentencesData.length).fill("");
-
-    function renderSentences() {
-        const container = document.getElementById('sentencesExercise');
-        if(!container) return;
-        container.innerHTML = '';
-        sentencesData.forEach((sent, idx) => {
-            const itemDiv = document.createElement('div');
-            itemDiv.className = 'sentence-item';
-            itemDiv.innerHTML = `
-                <div class="sentence-text">📝 ${sent.text}</div>
-                <input type="text" id="sentInput_${idx}" class="sentence-input" placeholder="${sent.placeholder}" value="">
-                <button class="check-btn" data-idx="${idx}">Перевірити</button>
-                <div id="sentFeedback_${idx}" class="sentence-feedback">${sentenceFeedbacks[idx]}</div>
-            `;
-            container.appendChild(itemDiv);
-        });
-        document.querySelectorAll('.check-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const idx = parseInt(btn.dataset.idx);
-                const inputVal = document.getElementById(`sentInput_${idx}`).value.trim();
-                const correctHint = sentencesData[idx].correctHint.toLowerCase();
-                const userLow = inputVal.toLowerCase();
-                let feedback = '';
-                if(userLow === correctHint || (idx===3 && (userLow.includes('запізнилася') || userLow.includes('запізнився')) && userLow.length>5)) {
-                    feedback = '✅ Добре! Відповідь правильна.';
-                } else if (idx===1 && (userLow === 'молода лікарка' || userLow === 'лікарка молода')) feedback = '✅ Правильно!';
-                else if (idx===2 && (userLow === 'відомий поет' || userLow==='поет')) feedback = '✅ Чудово!';
-                else if (idx===0 && (userLow === 'директорка')) feedback = '✅ Так, сучасна форма — директорка.';
-                else feedback = `⚠️ Спробуйте інакше. Підказка: "${correctHint}".`;
-                sentenceFeedbacks[idx] = feedback;
-                renderSentences();
-            });
-        });
-    }
-
-    // Ініціалізація
-    function init() {
-        initGame();
-        renderQuiz();
-        updateQuizResult();
-        renderSentences();
-        document.getElementById('resetGameBtn').addEventListener('click', () => {
-            initGame();
-        });
-    }
-    init();
-</script>
-</body>
-</html>
+}
